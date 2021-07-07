@@ -21,4 +21,4 @@ You may (optionally) use the console client to log into the Player Router server
 Detailed list of features available on the <a href="https://github.com/jakapps/player-router/wiki/Features">Wiki</a>.
 
 ## Installation
-Installation intructions available on the <a href="https://github.com/jakapps/player-router/wiki/Installation">Wiki</a>.
+Installation instructions available on the <a href="https://github.com/jakapps/player-router/wiki/Installation">Wiki</a>.
