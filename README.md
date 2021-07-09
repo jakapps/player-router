@@ -21,7 +21,7 @@ You may (optionally) use the console client to log into the Player Router server
 
 <br />
 <br />
-You can use my hosted console at <a href="console.jakapp.io">console.jakapp.io</a> or <a href="https://github.com/jakapps/player-router/wiki/Installation#optional-add-the-console-to-your-deployment">deploy your own</a>.
+You can use my hosted console at <a href="https://console.jakapp.io">console.jakapp.io</a> or <a href="https://github.com/jakapps/player-router/wiki/Installation#optional-add-the-console-to-your-deployment">deploy your own</a>.
 
 ## Features
 Detailed list of features available on the <a href="https://github.com/jakapps/player-router/wiki/Features">Wiki</a>.
