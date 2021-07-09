@@ -1,5 +1,13 @@
 # Player Router
 
+<a href="https://discord.gg/TbvDbephpj">
+  <img src="https://img.shields.io/discord/863071506527682611?logo=discord&logoColor=white&style=for-the-badge" />
+</a>
+
+<br />
+<br />
+
+
 Player Router is a game server discovery and player load balancing tool for your cluster of game servers.
 
 It it desinged to be infratructure and container orchestration agnostic, in order to simplify your game server deployments as much as possible.
