@@ -39,6 +39,40 @@ const getGameServer = (app: any, gameServersService: GameServersService) => {
     });
 }
 
+const getGameServers = (app: any, gameServersService: GameServersService) => {
+
+    app.get('/getGameServers', (req, res) => {
+
+        let servers = [];
+        let labels: { [label: string]: string } = {};
+
+        if(req.query) {
+
+            Object.entries(req.query).forEach(([key, value]: Array<any>) => {
+                labels[key] = value;
+            });
+        }
+
+        servers = Object.entries(gameServersService.getServers(labels))
+        .reduce((acc: Array<any>, [id, gameServer]: Array<any>) => {
+
+            let g = { ...gameServer };
+            delete g.timestamp;
+
+            acc.push(g);
+
+            return acc;
+        }, []);
+
+        if(!servers.length) {
+            res.status(503);
+        }
+
+        res.send(servers);
+    });
+};
+
 export {
-    getGameServer
+    getGameServer,
+    getGameServers
 };

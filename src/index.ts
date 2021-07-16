@@ -9,7 +9,7 @@ const Database = require('sqlite-async');
 const { v4: uuidv4 } = require('uuid');
 
 import { GameServersService } from "./services/game-servers";
-import { getGameServer } from "./routes/routes";
+import { getGameServer, getGameServers } from "./routes/routes";
 import {
     setupUserTable,
     addUser,
@@ -144,6 +144,7 @@ class PlayerRouter {
 
     initRoutes() {
         getGameServer(app, this.gameServersService);
+        getGameServers(app, this.gameServersService);
     }
 }
 

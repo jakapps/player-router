@@ -14,6 +14,7 @@ describe('Routes', () => {
         service.addUnauthorisedServer('testSocketID', () => {});
         service.addUnauthorisedServer('testSocketID2', () => {});
         service.addUnauthorisedServer('testSocketID3', () => {});
+        service.addUnauthorisedServer('testSocketID4', () => {});
         service.upgradeServerToAuthorised('testSocketID', {
             gameServerURL: "2.3.4.5",
             labels: {
@@ -28,6 +29,12 @@ describe('Routes', () => {
         });
         service.upgradeServerToAuthorised('testSocketID3', {
             gameServerURL: "5.6.7.8",
+            labels: {
+                stage: "dev"
+            }
+        });
+        service.upgradeServerToAuthorised('testSocketID4', {
+            gameServerURL: "example.gameserver.com",
             labels: {
                 stage: "dev"
             }
@@ -93,5 +100,46 @@ describe('Routes', () => {
             gameServerURL: "1.2.3.4",
             msg: ""
         });
+    });
+
+    test('getGameServers returns list of all servers matching given labels', async () => {
+
+        routes.getGameServers(app, service);
+
+        let res = await request(app)
+        .get('/getGameServers?stage=dev');
+
+        expect(res.status).toBe(200);
+        expect(res.body).toEqual([
+            {
+                id: "null",
+                playerCount: 0,
+                playerCapacity: 100,
+                gameServerURL: "5.6.7.8",
+                labels: {
+                    stage: "dev"
+                }
+            },
+            {
+                id: "null",
+                playerCount: 0,
+                playerCapacity: 100,
+                gameServerURL: "example.gameserver.com",
+                labels: {
+                    stage: "dev"
+                }
+            }
+        ]);
+    });
+
+    test('getGameServers returns empty array if no gameservers have matching labels', async () => {
+
+        routes.getGameServers(app, service);
+
+        let res = await request(app)
+        .get('/getGameServers?stage=prod');
+
+        expect(res.status).toBe(503);
+        expect(res.body).toEqual([]);
     });
 });

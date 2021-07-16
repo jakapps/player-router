@@ -52,6 +52,19 @@ const getSuitableServer = (gameServers: GameServers, labels?: Labels) : GameServ
     }, null);
 };
 
+const getServers = (gameServers: GameServers, labels?: Labels) : GameServers => {
+
+    return Object.entries(gameServers)
+    .reduce((servers: GameServers, [serverSocketId, potentialServer]) => {
+
+        if(labels && matchObjects(labels, potentialServer.labels)) {
+            servers[serverSocketId] = potentialServer;
+        }
+
+        return servers;
+    }, {});
+};
+
 class GameServersService {
     public unregisteredGameServers: UnregisteredGameServers = {};
     public gameServers: GameServers = {};
@@ -103,6 +116,10 @@ class GameServersService {
 
     getSuitableServer(labels?: Labels) {
         return getSuitableServer(this.gameServers, labels);
+    }
+
+    getServers(labels?: Labels) {
+        return getServers(this.gameServers, labels);
     }
 
     addUnauthorisedServer(socketId: string, onDestroy: () => void) {
