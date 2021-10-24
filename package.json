@@ -1,6 +1,6 @@
 {
-  "name": "matchmaker",
-  "version": "2.1.2",
+  "name": "player-router",
+  "version": "2.2.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {

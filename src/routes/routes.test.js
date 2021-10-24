@@ -42,9 +42,9 @@ describe('Routes', () => {
             }
         });
         service.upgradeServerToAuthorised('testSocketID5', {
-            gameServerURL: "example.gameserver.com",
+            gameServerURL: "with-array.gameserver.com",
             labels: {
-                array: [1, 2]
+                array: ["element1", "element2"]
             }
         });
         service.upgradeServerToAuthorised('testSocketID6', {
@@ -81,7 +81,7 @@ describe('Routes', () => {
         routes.getGameServer(app, service);
 
         let res = await request(app)
-        .get('/getGameServer/dev');
+            .get('/getGameServer/dev');
 
         expect(res.status).toBe(200);
         expect(res.body).toEqual({
@@ -104,7 +104,7 @@ describe('Routes', () => {
         routes.getGameServer(app, service);
 
         let res = await request(app)
-        .get('/getGameServer?exampleLabel=exampleValue');
+            .get('/getGameServer?exampleLabel=exampleValue');
 
         expect(res.status).toBe(200);
         expect(res.body).toEqual({
@@ -157,10 +157,39 @@ describe('Routes', () => {
         routes.getGameServers(app, service);
 
         let res = await request(app)
-        .get('/getGameServers?stage=prod');
+            .get('/getGameServers?stage=prod');
 
         expect(res.status).toBe(503);
         expect(res.body).toEqual([]);
     });
 
+    test('getGameServers will match an element within a label that is an array', async () => {
+
+        routes.getGameServers(app, service);
+
+        let res = await request(app)
+            .get('/getGameServers?array=element2');
+
+        expect(res.status).toBe(200);
+        expect(res.body).toEqual([{
+            id: "null",
+            playerCount: 0,
+            playerCapacity: 100,
+            gameServerURL: "with-array.gameserver.com",
+            labels: {
+                array: ["element1", "element2"]
+            }
+        }]);
+    });
+
+     test('getGameServers will not match if the element in the array is missing', async () => {
+
+        routes.getGameServers(app, service);
+
+        let res = await request(app)
+            .get('/getGameServers?array=element3');
+
+        expect(res.status).toBe(503);
+        expect(res.body).toEqual([]);
+    });
 });

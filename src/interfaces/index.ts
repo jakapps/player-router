@@ -1,6 +1,6 @@
 
 type Labels = {
-    [label: string]: string
+    [label: string]: string | Array<string>
 };
 
 type UnregisteredGameServer = {

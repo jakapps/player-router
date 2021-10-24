@@ -20,8 +20,24 @@ const matchObjects = (obj1: any, obj2: any) : boolean => {
     return Object.entries(obj1)
     .reduce((matching: boolean, [key, val]) => {
 
-        if(!obj2[key] || obj2[key] !== val) {
-            matching = false;
+        if(!obj2[key]) {
+            // Label doesn't exist on server at all
+            return false;
+        }
+
+        if(obj2[key] && Array.isArray(obj2[key])) {
+            // Label is an array
+
+            if(!obj2[key].includes(val)) {
+                return false;
+            }
+
+            return matching;
+        }
+
+        if(obj2[key] !== val) {
+            // Label is a string, and doesn't match
+            return false;
         }
 
         return matching;
