@@ -15,6 +15,8 @@ describe('Routes', () => {
         service.addUnauthorisedServer('testSocketID2', () => {});
         service.addUnauthorisedServer('testSocketID3', () => {});
         service.addUnauthorisedServer('testSocketID4', () => {});
+        service.addUnauthorisedServer('testSocketID5', () => {});
+        service.addUnauthorisedServer('testSocketID6', () => {});
         service.upgradeServerToAuthorised('testSocketID', {
             gameServerURL: "2.3.4.5",
             labels: {
@@ -37,6 +39,24 @@ describe('Routes', () => {
             gameServerURL: "example.gameserver.com",
             labels: {
                 stage: "dev"
+            }
+        });
+        service.upgradeServerToAuthorised('testSocketID5', {
+            gameServerURL: "example.gameserver.com",
+            labels: {
+                array: [1, 2]
+            }
+        });
+        service.upgradeServerToAuthorised('testSocketID6', {
+            gameServerURL: "example.gameserver.com",
+            labels: {
+                object: {
+                    myKey: "myParam",
+                    mySecondKey: {
+                        innerKey: "innerKeyValue"
+                    },
+                    myThirdKey: [1, 2]
+                }
             }
         });
     });
@@ -142,4 +162,5 @@ describe('Routes', () => {
         expect(res.status).toBe(503);
         expect(res.body).toEqual([]);
     });
+
 });
